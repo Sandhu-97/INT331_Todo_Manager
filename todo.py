@@ -13,3 +13,13 @@ def load_tasks():
 def save_tasks(tasks):
     with open(FILE_NAME, "w") as f:
         json.dump(tasks, f, indent=4)
+
+        
+def add_task(title: str):
+    tasks = load_tasks()
+    task_id = len(tasks) + 1
+    tasks.append({
+        "id": task_id,
+        "title": title,
+        "completed": False
+    })
