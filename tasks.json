@@ -1,5 +1,9 @@
 {
-  "id": 1,
-  "title": "Buy groceries",
-  "completed": false
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Buy groceries",
+      "completed": false
+    }
+  ]
 }
