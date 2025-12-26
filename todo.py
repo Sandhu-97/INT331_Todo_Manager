@@ -29,7 +29,7 @@ def add_task(title: str):
     print("Task saved!")
 
 def list_tasks():
-    tasks = load_tasks()['tasks']
+    tasks = load_tasks()
     if not tasks:
         print("No tasks found.")
         return
