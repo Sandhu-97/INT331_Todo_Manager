@@ -7,9 +7,13 @@ def load_tasks():
     if not os.path.exists(FILE_NAME):
         return []
 
-    with open(FILE_NAME, "r") as f:
-        return json.load(f)
-    
+    try:
+        with open(FILE_NAME, "r") as f:
+            data = json.load(f)
+            return data if isinstance(data, list) else []
+    except json.JSONDecodeError:
+        return []
+
 def save_tasks(tasks):
     with open(FILE_NAME, "w") as f:
         json.dump(tasks, f, indent=4)
@@ -17,7 +21,8 @@ def save_tasks(tasks):
 
 def add_task(title: str):
     tasks = load_tasks()
-    task_id = len(tasks) + 1
+    task_id = max([t["id"] for t in tasks], default=0) + 1
+
     
     tasks.append({
         "id": task_id,
@@ -40,9 +45,15 @@ def list_tasks():
 
 def delete_task(task_id):
     tasks = load_tasks()
-    tasks = [t for t in tasks if t['id']!=task_id]
-    save_tasks(tasks)
+    new_tasks = [t for t in tasks if t["id"] != task_id]
+
+    if len(tasks) == len(new_tasks):
+        print("Task not found.")
+        return
+
+    save_tasks(new_tasks)
     print("Task deleted.")
+
 
 def complete_task(task_id):
     tasks = load_tasks()
@@ -69,12 +80,18 @@ def menu():
             list_tasks()
 
         elif choice == "3":
-            task_id = int(input("Task ID: "))
-            delete_task(task_id)
+            try:
+                task_id = int(input("Task ID: "))
+                delete_task(task_id)
+            except ValueError:
+                print("Please enter a valid number.")
 
         elif choice == "4":
-            task_id = int(input("Task ID: "))
-            complete_task(task_id)
+            try:
+                task_id = int(input("Task ID: "))
+                complete_task(task_id)
+            except ValueError:
+                print("Please enter a valid number.")
         elif (choice=="5"):
             break
 
