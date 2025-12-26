@@ -24,7 +24,9 @@ def add_task(title: str):
         "title": title,
         "completed": False
     })
-
+    
+    save_tasks(tasks)
+    print("Task saved!")
 
 def menu():
     while True:
