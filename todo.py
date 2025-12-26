@@ -19,7 +19,7 @@ def add_task(title: str):
     tasks = load_tasks()
     task_id = len(tasks) + 1
     
-    tasks['tasks'].append({
+    tasks.append({
         "id": task_id,
         "title": title,
         "completed": False
