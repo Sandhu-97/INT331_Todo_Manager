@@ -24,7 +24,7 @@ def add_task(title: str):
         "title": title,
         "completed": False
     })
-    
+
     save_tasks(tasks)
     print("Task saved!")
 
@@ -39,6 +39,12 @@ def list_tasks():
         print(f'{task["id"]}. [{status}] {task["title"]}')
 
 
+def delete_task(task_id):
+    tasks = load_tasks()
+    tasks = [t for t in tasks if t['id']!=task_id]
+    save_tasks(tasks)
+    print("Task deleted.")
+    
 def menu():
     while True:
         print("\n1. Add Task")
@@ -54,6 +60,10 @@ def menu():
         
         elif (choice=="2"):
             list_tasks()
+
+        elif choice == "3":
+            task_id = int(input("Task ID: "))
+            delete_task(task_id)
 
         elif (choice=="5"):
             break
