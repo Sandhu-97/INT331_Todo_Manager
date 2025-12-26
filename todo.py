@@ -38,12 +38,19 @@ def list_tasks():
         status = "✓" if task["completed"] else "✗"
         print(f'{task["id"]}. [{status}] {task["title"]}')
 
-
 def delete_task(task_id):
     tasks = load_tasks()
     tasks = [t for t in tasks if t['id']!=task_id]
     save_tasks(tasks)
     print("Task deleted.")
+
+def complete_task(task_id):
+    tasks = load_tasks()
+    for task in tasks:
+        if task["id"] == task_id:
+            task["completed"] = True
+    save_tasks(tasks)
+    print("Task marked as completed.")
     
 def menu():
     while True:
@@ -65,6 +72,9 @@ def menu():
             task_id = int(input("Task ID: "))
             delete_task(task_id)
 
+        elif choice == "4":
+            task_id = int(input("Task ID: "))
+            complete_task(task_id)
         elif (choice=="5"):
             break
 
