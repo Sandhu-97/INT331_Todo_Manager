@@ -28,6 +28,17 @@ def add_task(title: str):
     save_tasks(tasks)
     print("Task saved!")
 
+def list_tasks():
+    tasks = load_tasks()['tasks']
+    if not tasks:
+        print("No tasks found.")
+        return
+ 
+    for task in tasks:
+        status = "✓" if task["completed"] else "✗"
+        print(f'{task["id"]}. [{status}] {task["title"]}')
+
+
 def menu():
     while True:
         print("\n1. Add Task")
@@ -41,6 +52,9 @@ def menu():
             title = input("Task title: ")
             add_task(title)
         
+        elif (choice=="2"):
+            list_tasks()
+
         elif (choice=="5"):
             break
 
